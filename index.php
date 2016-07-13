@@ -8,7 +8,7 @@ require_once "vendor/autoload.php";
 // it can be configured as object or by another ways
 // at this example - this is simple array
 $configuration = [
-    'factory' => 'TreeComponent\Tree\Composite',
+    'factory' => 'TreeComponent\Factory\FlatArrayFactory',
     'renderer' => 'TreeComponent\Renderer\ConsoleRender'
 ];
 
