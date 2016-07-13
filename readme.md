@@ -31,6 +31,11 @@ Application::init($configuration);
 /** @var \TreeComponent\Tree\Composite $root */
 $root = Application::factory()->getTree($array);
 
+// foreach example
+foreach ($root as $item) {
+    printf('Level: %d,  name: %s', $item->getLevel(), $item->getName());
+}
+
 // print tree from root
 $root->renderTree(
    Application::renderer()
