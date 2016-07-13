@@ -1,40 +1,42 @@
 <?php
 
-use TreeComponent\Factory\FlatArrayFactoryAbstract;
+use TreeComponent\Application;
 
 require_once "vendor/autoload.php";
 
-
-$array = [
-    [
-        'id' => 1,
-        'parent_id' => 0,
-        'name' => 'Первый',
-        'children' => [
-            [
-                'id' => 3,
-                'parent_id' => 1,
-                'name' => 'Подпункт первого',
-                'children' => [
-                    [
-                        'id' => 4,
-                        'parent_id' => 3,
-                        'name' => 'Подпункт подпункта'
-                    ],
-                ]
-            ],
-
-        ],
-    ],
-    [
-        'id' => 2,
-        'parent_id' => 0,
-        'name' => 'Второй'
-    ],
+// simple configuration example
+// it can be configured as object or by another ways
+// at this example - this is simple array
+$configuration = [
+    'factory' => 'TreeComponent\Tree\Composite',
+    'renderer' => 'TreeComponent\Renderer\ConsoleRender'
 ];
 
-$tree = FlatArrayFactoryAbstract::createStructure($array);
+$array = [
+    // data as a flat array
+    // or for example as hierarchical array
+    // or as collection of objects
+];
 
-foreach ($tree->getChildren() as $item) {
+Application::init($configuration);
 
+/** @var \TreeComponent\Tree\Composite $root */
+$root = Application::factory()->getTree($array);
+
+// foreach example
+foreach ($root as $item) {
+    printf('Level: %d,  name: %s', $item->getLevel(), $item->getName());
 }
+
+// print tree from root
+$root->renderTree(
+   Application::renderer()
+);
+
+// print tree from given node (id=3)
+$root->findElementById(3)->renderTree(
+    Application::renderer()
+);
+
+// print path to root
+$root->findElementById(4)->renderPath(Application::renderer());

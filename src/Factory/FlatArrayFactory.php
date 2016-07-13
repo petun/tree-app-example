@@ -2,14 +2,21 @@
 
 namespace TreeComponent\Factory;
 
-use TreeComponent\Model\ITreeComposite;
 
+use TreeComponent\Tree\TreeElement;
+
+/**
+ * Factory for creating Tree from flat arrays
+ *
+ * Class FlatArrayFactoryAbstract
+ * @package TreeComponent\Factory
+ */
 class FlatArrayFactoryAbstract extends AbstractTreeFactory
 {
 
     /**
      * @param $data
-     * @return ITreeComposite
+     * @return TreeElement
      */
     public function getTree($data)
     {
